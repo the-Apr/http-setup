@@ -1,4 +1,6 @@
 <template>
+  <h2 class="header">Learning Experience Review</h2>
+  <p></p>
   <learning-survey></learning-survey>
   <user-experiences></user-experiences>
 </template>
@@ -42,5 +44,11 @@ html {
 
 body {
   margin: 0;
+}
+.header{
+  background-color: #360032;
+  color: white;
+  padding: 0.5rem 2rem;
+  margin: 0
 }
 </style>
