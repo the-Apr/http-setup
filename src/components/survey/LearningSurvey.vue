@@ -1,7 +1,7 @@
 <template>
   <section>
     <base-card>
-      <h2>How was you learning experience?</h2>
+      <h2>How was you learning experience? </h2>
       <form @submit.prevent="submitSurvey">
         <div class="form-control">
           <label for="name">Your Name</label>
@@ -26,9 +26,14 @@
           <input type="radio" id="rating-great" value="great" name="rating" v-model="chosenRating" />
           <label for="rating-great">Great</label>
         </div>
-        <p
-          v-if="invalidInput"
-        >One or more input fields are invalid. Please check your provided data.</p>
+        <base-dialog v-if="invalidInput" title="Invalid Input" @close="closeDialog">
+          <template #body>
+            <p>One or more input fields are invalid. Please check your provided data.</p>
+          </template>
+          <template #actions>
+            <base-button @click="closeDialog">Ok</base-button>
+          </template>
+        </base-dialog>
         <p v-if="error"> {{error}}</p>
         <div>
           <base-button>Submit</base-button>
@@ -39,7 +44,10 @@
 </template>
 
 <script>
+import BaseButton from '../UI/BaseButton.vue';
+import BaseDialog from '../UI/BaseDialog.vue';
 export default {
+	components: { BaseDialog, BaseButton },
   data() {
     return {
       enteredName: '',
@@ -48,7 +56,7 @@ export default {
       error: null 
     };
   },
-  emits: ['survey-submit'],
+  // emits: ['survey-submit'],
   methods: {
     submitSurvey() {
       if (this.enteredName === '' || !this.chosenRating) {
@@ -62,9 +70,9 @@ export default {
       //   rating: this.chosenRating,
       // });
       this.error= null;
-      fetch("https://vue-http-demo-d63e9-default-rtdb.firebaseio.com/surveys.jso", {
+      fetch("https://vue-http-demo-d63e9-default-rtdb.firebaseio.com/surveys.json", {
         method: 'POST',
-        headers: {
+        headers: { 
           'Content-Type' : 'application/json'
         },
         body: JSON.stringify({name: this.enteredName, rating: this.chosenRating}),
@@ -84,6 +92,10 @@ export default {
       this.enteredName = '';
       this.chosenRating = null;
     },
+    closeDialog(){
+      this.invalidInput= false;
+      
+    }, //methods
   },
 };
 </script>

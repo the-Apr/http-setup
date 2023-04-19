@@ -49,6 +49,7 @@ body {
   background-color: #360032;
   color: white;
   padding: 0.5rem 2rem;
-  margin: 0
+  margin: 0;
+  text-align: center;
 }
 </style>
