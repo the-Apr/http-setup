@@ -8,8 +8,9 @@
 div {
   margin: 2rem auto;
   max-width: 47rem;
-  padding: 2rem;
+  padding: 1rem 2rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  border: 1px solid #330075;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
 }
 </style>

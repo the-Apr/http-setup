@@ -4,8 +4,8 @@
       <h2>How was you learning experience? </h2>
       <form @submit.prevent="submitSurvey">
         <div class="form-control">
-          <label for="name">Your Name</label>
-          <input type="text" id="name" name="name" v-model.trim="enteredName" />
+          <!-- <label for="name">Your Name</label> -->
+          <input type="text" class="name-input" id="name" name="name" placeholder="Enter your name" v-model.trim="enteredName" />
         </div>
         <h3>My learning experience was ...</h3>
         <div class="form-control">
@@ -103,11 +103,23 @@ export default {
 <style scoped>
 .form-control {
   margin: 0.5rem 0;
+
 }
 
 input[type='text'] {
   display: block;
-  width: 20rem;
+  width: 25rem;
   margin-top: 0.5rem;
+}
+.name-input {
+  border-bottom: 2px solid #330075;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  padding: 0.4rem;
+  outline: none; 
+}
+.name-input:focus {
+  font-size: 30px ;
 }
 </style>
