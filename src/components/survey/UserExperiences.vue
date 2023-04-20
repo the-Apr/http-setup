@@ -6,8 +6,15 @@
         <base-button @click= "loadExperiences">Load Submitted Experiences</base-button>
       </div>
       <p v-if="isLoading">Loading...</p>
-      <p v-else-if="!isLoading && (!results || results.length === 0)">No stored experience found</p>
-      <p v-else-if="!isLoading && error">{{ error }}</p>
+      <base-dialog v-else-if="!isLoading && error" title="Error" @close="closeDialog">
+          <template #body>
+            <p> {{error}}</p>
+          </template>
+          <template #actions @close="closeDialog"> 
+            
+          </template>
+        </base-dialog>
+      <p v-else-if="!isLoading  && (!results || results.length === 0)">No stored experience found</p>
       <ul v-else-if="!isLoading && results.length> 0 && results">
         <survey-result
           v-for="result in results"
@@ -38,7 +45,7 @@ export default {
     loadExperiences(){
       this.isLoading= true;
       this.error= null;
-      fetch("https://vue-http-demo-d63e9-default-rtdb.firebaseio.com/surveys.json")
+      fetch("https://vue-http-demo-d63e9-default-rtdb.firebaseio.com/surveys.json?auth=Hjxy3x2TIa1AzIvmA2TZPdYUB825OiTne7MsXhNX")
         .then((response) => {
           if(response.ok){
             return response.json();
@@ -62,7 +69,10 @@ export default {
         this.error= "Failed to fetch data- Please try again later."
       });
     },
-  },
+    closeDialog(){
+      this.error= null;
+    },
+  }, //methods
   mounted(){
     this.loadExperiences();
   }

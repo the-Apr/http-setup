@@ -34,7 +34,14 @@
             <base-button @click="closeDialog">Ok</base-button>
           </template>
         </base-dialog>
-        <p v-if="error"> {{error}}</p>
+        <base-dialog v-if="error" title="Error" @close="closeDialog">
+          <template #body>
+            <p> Could not submit data. Try again</p>
+          </template>
+          <template #actions @close="closeDialog"> 
+            
+          </template>
+        </base-dialog>
         <div>
           <base-button>Submit</base-button>
         </div>
@@ -53,7 +60,8 @@ export default {
       enteredName: '',
       chosenRating: null,
       invalidInput: false,
-      error: null 
+      error: null,
+      dataError: false,
     };
   },
   // emits: ['survey-submit'],
@@ -70,7 +78,7 @@ export default {
       //   rating: this.chosenRating,
       // });
       this.error= null;
-      fetch("https://vue-http-demo-d63e9-default-rtdb.firebaseio.com/surveys.json", {
+      fetch("https://vue-http-demo-d63e9-default-rtdb.firebaseio.com/surveys.json?auth=Hjxy3x2TIa1AzIvmA2TZPdYUB825OiTne7MsXhNX", {
         method: 'POST',
         headers: { 
           'Content-Type' : 'application/json'
@@ -94,6 +102,7 @@ export default {
     },
     closeDialog(){
       this.invalidInput= false;
+      this.error= null;
       
     }, //methods
   },
